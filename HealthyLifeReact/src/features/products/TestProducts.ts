@@ -1,0 +1,48 @@
+import { Product } from "../../app/models/Product";
+
+export const testProducts: Product[] = [
+  {
+    id: 1,
+    name: "Apple",
+    calories: 52,
+    proteins: 0.3,
+    carbs: 14,
+    fats: 0.2,
+    fiber: 2.4,
+    price: 0.5,
+    createdBy: "Admin",
+  },
+  {
+    id: 2,
+    name: "Banana",
+    calories: 96,
+    proteins: 1.3,
+    carbs: 27,
+    fats: 0.3,
+    fiber: 2.6,
+    price: 0.3,
+    createdBy: "Admin",
+  },
+  {
+    id: 3,
+    name: "Chicken Breast",
+    calories: 165,
+    proteins: 31,
+    carbs: 0,
+    fats: 3.6,
+    fiber: 0,
+    price: 3.0,
+    createdBy: "Admin",
+  },
+  {
+    id: 4,
+    name: "Broccoli",
+    calories: 55,
+    proteins: 3.7,
+    carbs: 11.2,
+    fats: 0.6,
+    fiber: 3.6,
+    price: 1.2,
+    createdBy: "Admin",
+  },
+];

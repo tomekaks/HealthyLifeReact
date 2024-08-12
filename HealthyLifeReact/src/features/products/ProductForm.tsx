@@ -28,7 +28,6 @@ export default function ProductForm({
   const [product, setProduct] = useState(initialState);
 
   function handleSubmit() {
-    console.log(product);
     createOrEdit(product);
   }
 

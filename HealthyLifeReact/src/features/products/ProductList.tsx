@@ -35,6 +35,10 @@ export default function ProductList() {
     setEditMode(false);
   }
 
+  function handleDeleteProduct(id: number) {
+    setProducts([...products.filter((p) => p.id !== id)]);
+  }
+
   return (
     <>
       <Container>
@@ -74,7 +78,12 @@ export default function ProductList() {
                       >
                         Edit
                       </Button>{" "}
-                      <Button variant="danger">Delete</Button>
+                      <Button
+                        variant="danger"
+                        onClick={() => handleDeleteProduct(product.id)}
+                      >
+                        Delete
+                      </Button>
                     </td>
                   </tr>
                 ))}

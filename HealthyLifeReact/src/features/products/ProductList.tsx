@@ -1,43 +1,11 @@
-import { useState } from "react";
 import { Button, Col, Container, Row, Table } from "react-bootstrap";
-import { testProducts } from "./TestProducts";
-import { Product } from "../../app/models/Product";
 import ProductForm from "./ProductForm";
+import { useStore } from "../../app/stores/store";
+import { observer } from "mobx-react-lite";
 
-export default function ProductList() {
-  const [products, setProducts] = useState<Product[]>(testProducts);
-  const [selectedProduct, setSelectedProduct] = useState<Product | undefined>(
-    undefined
-  );
-  const [editMode, setEditMode] = useState(false);
-
-  function handleSelectProduct(id: number) {
-    setSelectedProduct(products.find((p) => p.id === id));
-  }
-
-  function handleCancelSelectProduct() {
-    setSelectedProduct(undefined);
-  }
-
-  function handleFormOpen(id?: number) {
-    id ? handleSelectProduct(id) : handleCancelSelectProduct();
-    setEditMode(true);
-  }
-
-  function handleFormClose() {
-    setEditMode(false);
-  }
-
-  function handleCreateOrEditProduct(product: Product) {
-    product.id
-      ? setProducts([...products.filter((p) => p.id !== product.id), product])
-      : setProducts([...products, product]);
-    setEditMode(false);
-  }
-
-  function handleDeleteProduct(id: number) {
-    setProducts([...products.filter((p) => p.id !== id)]);
-  }
+export default observer(function ProductList() {
+  const { productStore } = useStore();
+  const { products, editMode, openForm, deleteProduct } = productStore;
 
   return (
     <>
@@ -46,7 +14,7 @@ export default function ProductList() {
           <Col md="8">
             <h2>Products</h2>
             <div className="mb-3">
-              <Button variant="success" onClick={() => handleFormOpen()}>
+              <Button variant="success" onClick={() => openForm()}>
                 Add new product
               </Button>
             </div>
@@ -74,13 +42,13 @@ export default function ProductList() {
                     <td>
                       <Button
                         variant="info"
-                        onClick={() => handleFormOpen(product.id)}
+                        onClick={() => openForm(product.id)}
                       >
                         Edit
                       </Button>{" "}
                       <Button
                         variant="danger"
-                        onClick={() => handleDeleteProduct(product.id)}
+                        onClick={() => deleteProduct(product.id)}
                       >
                         Delete
                       </Button>
@@ -92,15 +60,11 @@ export default function ProductList() {
           </Col>
           {editMode && (
             <Col md="4">
-              <ProductForm
-                product={selectedProduct}
-                closeForm={handleFormClose}
-                createOrEdit={handleCreateOrEditProduct}
-              />
+              <ProductForm />
             </Col>
           )}
         </Row>
       </Container>
     </>
   );
-}
+});

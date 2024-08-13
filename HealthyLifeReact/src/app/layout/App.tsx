@@ -1,13 +1,12 @@
+import { observer } from "mobx-react-lite";
 import ProductList from "../../features/products/ProductList";
 import NavBar from "./NavBar";
 
-function App() {
+export default observer(function App() {
   return (
     <div>
       <NavBar />
       <ProductList />
     </div>
   );
-}
-
-export default App;
+});

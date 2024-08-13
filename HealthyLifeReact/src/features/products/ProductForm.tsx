@@ -1,18 +1,13 @@
 import { ChangeEvent, useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import { Product } from "../../app/models/Product";
+import { useStore } from "../../app/stores/store";
+import { observer } from "mobx-react-lite";
 
-interface Props {
-  product: Product | undefined;
-  closeForm: () => void;
-  createOrEdit: (product: Product) => void;
-}
+export default observer(function ProductForm() {
+  const { productStore } = useStore();
+  const { selectedProduct, closeForm, createProduct, updateProduct } =
+    productStore;
 
-export default function ProductForm({
-  product: selectedProduct,
-  closeForm,
-  createOrEdit,
-}: Props) {
   const initialState = selectedProduct ?? {
     id: 0,
     name: "",
@@ -28,7 +23,7 @@ export default function ProductForm({
   const [product, setProduct] = useState(initialState);
 
   function handleSubmit() {
-    createOrEdit(product);
+    product.id ? updateProduct(product) : createProduct(product);
   }
 
   function handleControlChange(event: ChangeEvent<HTMLInputElement>) {
@@ -119,4 +114,4 @@ export default function ProductForm({
       </Form>
     </>
   );
-}
+});

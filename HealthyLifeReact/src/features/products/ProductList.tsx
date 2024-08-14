@@ -1,11 +1,11 @@
 import { Button, Col, Container, Row, Table } from "react-bootstrap";
-import ProductForm from "./ProductForm";
 import { useStore } from "../../app/stores/store";
 import { observer } from "mobx-react-lite";
+import { Link } from "react-router-dom";
 
 export default observer(function ProductList() {
   const { productStore } = useStore();
-  const { products, editMode, openForm, deleteProduct } = productStore;
+  const { products, deleteProduct } = productStore;
 
   return (
     <>
@@ -14,9 +14,9 @@ export default observer(function ProductList() {
           <Col md="8">
             <h2>Products</h2>
             <div className="mb-3">
-              <Button variant="success" onClick={() => openForm()}>
-                Add new product
-              </Button>
+              <Link to={"/createProduct"}>
+                <Button variant="success">Add new product</Button>
+              </Link>
             </div>
             <Table striped bordered hover>
               <thead>
@@ -40,12 +40,9 @@ export default observer(function ProductList() {
                     <td>{product.fats}</td>
                     <td>{product.fiber}</td>
                     <td>
-                      <Button
-                        variant="info"
-                        onClick={() => openForm(product.id)}
-                      >
-                        Edit
-                      </Button>{" "}
+                      <Link to={`/editProduct/${product.id}`}>
+                        <Button variant="info">Edit</Button>{" "}
+                      </Link>
                       <Button
                         variant="danger"
                         onClick={() => deleteProduct(product.id)}
@@ -58,11 +55,6 @@ export default observer(function ProductList() {
               </tbody>
             </Table>
           </Col>
-          {editMode && (
-            <Col md="4">
-              <ProductForm />
-            </Col>
-          )}
         </Row>
       </Container>
     </>

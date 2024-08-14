@@ -1,14 +1,16 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useStore } from "../../app/stores/store";
 import { observer } from "mobx-react-lite";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 export default observer(function ProductForm() {
   const { productStore } = useStore();
-  const { selectedProduct, closeForm, createProduct, updateProduct } =
-    productStore;
+  const { createProduct, updateProduct, loadProduct } = productStore;
+  const { id } = useParams();
+  const navigate = useNavigate();
 
-  const initialState = selectedProduct ?? {
+  const initialState = {
     id: 0,
     name: "",
     calories: 0,
@@ -22,8 +24,16 @@ export default observer(function ProductForm() {
 
   const [product, setProduct] = useState(initialState);
 
+  useEffect(() => {
+    if (id) {
+      let selectedProduct = loadProduct(parseInt(id, 10));
+      setProduct(selectedProduct!);
+    }
+  }, [id]);
+
   function handleSubmit() {
     product.id ? updateProduct(product) : createProduct(product);
+    navigate("/products");
   }
 
   function handleControlChange(event: ChangeEvent<HTMLInputElement>) {
@@ -42,7 +52,7 @@ export default observer(function ProductForm() {
             name="name"
             value={product.name}
             onChange={handleControlChange}
-            readOnly={!!selectedProduct}
+            readOnly={!!product.id}
           />
         </Form.Group>
         <Form.Group className="mb-2" controlId="formCalories">
@@ -105,9 +115,10 @@ export default observer(function ProductForm() {
             onChange={handleControlChange}
           />
         </Form.Group>
-        <Button variant="primary" onClick={() => closeForm()}>
-          Cancel
-        </Button>{" "}
+        <Link to={"/products"}>
+          <Button variant="primary">Back</Button>{" "}
+        </Link>
+
         <Button variant="success" type="submit">
           Submit
         </Button>

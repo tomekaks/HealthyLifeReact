@@ -1,128 +1,120 @@
-import { ChangeEvent, useEffect, useState } from "react";
-import { Button, Form } from "react-bootstrap";
 import { useStore } from "../../app/stores/store";
 import { observer } from "mobx-react-lite";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useLoaderData, useNavigate, useParams } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Product } from "../../app/models/Product";
+import { Button } from "react-bootstrap";
+
+const productSchema = z.object({
+  name: z.string(),
+  calories: z.number().min(0),
+  proteins: z.number().min(0),
+  carbs: z.number().min(0),
+  fats: z.number().min(0),
+  fiber: z.number().min(0),
+  price: z.number().min(0),
+});
 
 export default observer(function ProductForm() {
   const { productStore } = useStore();
-  const { createProduct, updateProduct, loadProduct } = productStore;
+  const { createProduct, updateProduct } = productStore;
   const { id } = useParams();
+  const product = useLoaderData() as Product | null;
   const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    reset,
+  } = useForm<Product>({
+    resolver: zodResolver(productSchema),
+    defaultValues: {
+      id: product?.id || 0,
+      name: product?.name || "",
+      calories: product?.calories || 0,
+      proteins: product?.proteins || 0,
+      carbs: product?.carbs || 0,
+      fats: product?.fats || 0,
+      fiber: product?.fiber || 0,
+      price: product?.price || 0,
+      createdBy: "User",
+    },
+  });
 
-  const initialState = {
-    id: 0,
-    name: "",
-    calories: 0,
-    proteins: 0,
-    carbs: 0,
-    fats: 0,
-    fiber: 0,
-    price: 0,
-    createdBy: "User",
+  const onSubmit = (data: Product) => {
+    console.log(product);
+    if (id) {
+      data.id = parseInt(id, 10);
+      updateProduct(data);
+    } else {
+      createProduct(data);
+    }
+
+    // id ? updateProduct(data) : createProduct(data);
+    navigate("/products");
   };
 
-  const [product, setProduct] = useState(initialState);
-
-  useEffect(() => {
-    if (id) {
-      let selectedProduct = loadProduct(parseInt(id, 10));
-      setProduct(selectedProduct!);
-    }
-  }, [id]);
-
-  function handleSubmit() {
-    product.id ? updateProduct(product) : createProduct(product);
-    navigate("/products");
-  }
-
-  function handleControlChange(event: ChangeEvent<HTMLInputElement>) {
-    const { name, value } = event.target;
-    setProduct({ ...product, [name]: value });
-  }
-
   return (
-    <>
-      <Form onSubmit={handleSubmit}>
-        <Form.Group className="mb-2" controlId="formName">
-          <Form.Label>Name</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Name"
-            name="name"
-            value={product.name}
-            onChange={handleControlChange}
-            readOnly={!!product.id}
-          />
-        </Form.Group>
-        <Form.Group className="mb-2" controlId="formCalories">
-          <Form.Label>Calories</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Calories per 100g"
-            name="calories"
-            value={product.calories}
-            onChange={handleControlChange}
-          />
-        </Form.Group>
-        <Form.Group className="mb-2" controlId="formProteins">
-          <Form.Label>Proteins</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Proteins per 100g"
-            name="proteins"
-            value={product.proteins}
-            onChange={handleControlChange}
-          />
-        </Form.Group>
-        <Form.Group className="mb-2" controlId="formCarbs">
-          <Form.Label>Carbs</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Carbs per 100g"
-            name="carbs"
-            value={product.carbs}
-            onChange={handleControlChange}
-          />
-        </Form.Group>
-        <Form.Group className="mb-2" controlId="formFats">
-          <Form.Label>Fats</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Fats per 100g"
-            name="fats"
-            value={product.fats}
-            onChange={handleControlChange}
-          />
-        </Form.Group>
-        <Form.Group className="mb-2" controlId="formFiber">
-          <Form.Label>Fiber</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Fiber per 100g"
-            name="fiber"
-            value={product.fiber}
-            onChange={handleControlChange}
-          />
-        </Form.Group>
-        <Form.Group className="mb-2" controlId="formPrice">
-          <Form.Label>Price</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Price per 100g"
-            name="price"
-            value={product.price}
-            onChange={handleControlChange}
-          />
-        </Form.Group>
-        <Link to={"/products"}>
-          <Button variant="primary">Back</Button>{" "}
-        </Link>
-
-        <Button variant="success" type="submit">
-          Submit
-        </Button>
-      </Form>
-    </>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <label>Name</label>
+      <input {...register("name")} className="form-control" />
+      {errors.name && <p className="text-danger">{`${errors.name.message}`}</p>}
+      <label>Calories</label>
+      <input
+        {...register("calories", { valueAsNumber: true })}
+        className="form-control"
+      />
+      {errors.calories && (
+        <p className="text-danger">{`${errors.calories.message}`}</p>
+      )}
+      <label>Proteins</label>
+      <input
+        {...register("proteins", { valueAsNumber: true })}
+        className="form-control"
+      />
+      {errors.proteins && (
+        <p className="text-danger">{`${errors.proteins.message}`}</p>
+      )}
+      <label>Carbs</label>
+      <input
+        {...register("carbs", { valueAsNumber: true })}
+        className="form-control"
+      />
+      {errors.carbs && (
+        <p className="text-danger">{`${errors.carbs.message}`}</p>
+      )}
+      <label>Fats</label>
+      <input
+        {...register("fats", { valueAsNumber: true })}
+        className="form-control"
+      />
+      {errors.fats && <p className="text-danger">{`${errors.fats.message}`}</p>}
+      <label>Fiber</label>
+      <input
+        {...register("fiber", { valueAsNumber: true })}
+        className="form-control"
+      />
+      {errors.fiber && (
+        <p className="text-danger">{`${errors.fiber.message}`}</p>
+      )}
+      <label>Price</label>
+      <input
+        {...register("price", { valueAsNumber: true })}
+        className="form-control"
+      />
+      {errors.price && (
+        <p className="text-danger">{`${errors.price.message}`}</p>
+      )}
+      <Link to={"/products"}>
+        <Button className="mt-2" variant="primary">
+          Back
+        </Button>{" "}
+      </Link>
+      <Button className="mt-2" variant="success" type="submit">
+        Submit
+      </Button>
+    </form>
   );
 });

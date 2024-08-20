@@ -14,11 +14,13 @@ export default class ProductStore {
   };
 
   createProduct = (product: Product) => {
-    // [...this.products, product];
+    console.log("creating");
+    product.id = this.products.length + 1;
     this.products.push(product);
   };
 
   updateProduct = (product: Product) => {
+    console.log("updating");
     this.products = [
       ...this.products.filter((p) => p.id !== product.id),
       product,

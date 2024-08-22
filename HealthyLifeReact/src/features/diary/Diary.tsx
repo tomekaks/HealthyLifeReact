@@ -1,16 +1,15 @@
 import { Col, Container, Row, Table } from "react-bootstrap";
 import MealRow from "./MealRow";
-import { testMealItems } from "./TestMealItems";
-import { MealItem } from "../../app/models/MealItem";
-import MealItemRow from "./MealItemRow";
+import { Meal } from "../../app/models/Meal";
+import { testMeals } from "./TestMeals";
 
 export default function Diary() {
-  const mealItems: MealItem[] = testMealItems;
+  const meals: Meal[] = testMeals;
   return (
     <>
       <Container>
         <Row>
-          <Col md-8>
+          <Col md="8">
             <div>
               <h1>Your dairy for:</h1>{" "}
             </div>
@@ -19,39 +18,22 @@ export default function Diary() {
                 <tr>
                   <th></th>
                   <th>Product</th>
-                  <th>Weight</th>
-                  <th>Calories</th>
-                  <th>Proteins</th>
-                  <th>Carbs</th>
-                  <th>Fats</th>
-                  <th>Fiber</th>
+                  <th>Weight (g)</th>
+                  <th>Calories (kcal)</th>
+                  <th>Proteins (g)</th>
+                  <th>Carbs (g)</th>
+                  <th>Fats (g)</th>
+                  <th>Fiber (g)</th>
                 </tr>
               </thead>
               <tbody>
-                <MealRow name="First meal" />
-                {mealItems
-                  .filter((mealItem) => mealItem.mealId === 1)
-                  .map((mealItem) => (
-                    <MealItemRow mealItem={mealItem} />
-                  ))}
-                <MealRow name="Second meal" />
-                {mealItems
-                  .filter((mealItem) => mealItem.mealId === 2)
-                  .map((mealItem) => (
-                    <MealItemRow mealItem={mealItem} />
-                  ))}
-                <MealRow name="Third meal" />
-                {mealItems
-                  .filter((mealItem) => mealItem.mealId === 3)
-                  .map((mealItem) => (
-                    <MealItemRow mealItem={mealItem} />
-                  ))}
-                <MealRow name="Fourth meal" />
-                {mealItems
-                  .filter((mealItem) => mealItem.mealId === 4)
-                  .map((mealItem) => (
-                    <MealItemRow mealItem={mealItem} />
-                  ))}
+                {meals.map((meal) => (
+                  <MealRow meal={meal} key={meal.id} />
+                ))}
+                {/* <MealRow meal={meals[0]} />
+                <MealRow meal={meals[1]} />
+                <MealRow meal={meals[2]} />
+                <MealRow meal={meals[3]} /> */}
               </tbody>
             </Table>
           </Col>

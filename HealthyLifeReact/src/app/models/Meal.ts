@@ -3,6 +3,7 @@ import { MealItem } from "./MealItem";
 export interface Meal {
   id: number;
   dailySumId: number;
+  name: string;
   weight: number;
   calories: number;
   proteins: number;

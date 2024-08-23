@@ -1,33 +1,44 @@
-import { makeAutoObservable } from "mobx";
+import { makeAutoObservable, runInAction } from "mobx";
 import { Product } from "../models/Product";
-import { testProducts } from "../../features/products/TestProducts";
+import agent from "../api/agent";
+import { CreateProduct } from "../models/CreateProduct";
+import { UpdateProduct } from "../models/UpdateProduct";
 
 export default class ProductStore {
-  products: Product[] = testProducts;
+  products: Product[] = [];
 
   constructor() {
     makeAutoObservable(this);
   }
 
+  loadProducts = async () => {
+    const response = await agent.Products.list();
+    runInAction(() => (this.products = response));
+  };
+
   loadProduct = (id: number) => {
+    agent.Products.single(id);
     return this.products.find((p) => p.id === id);
   };
 
-  createProduct = (product: Product) => {
+  createProduct = async (product: CreateProduct) => {
     console.log("creating");
-    product.id = this.products.length + 1;
-    this.products.push(product);
+    await agent.Products.create(product);
+    // product.id = this.products.length + 1;
+    // this.products.push(product);
   };
 
-  updateProduct = (product: Product) => {
+  updateProduct = async (product: UpdateProduct) => {
     console.log("updating");
-    this.products = [
-      ...this.products.filter((p) => p.id !== product.id),
-      product,
-    ];
+    await agent.Products.update(product);
+    // this.products = [
+    //   ...this.products.filter((p) => p.id !== product.id),
+    //   product,
+    // ];
   };
 
-  deleteProduct = (id: number) => {
-    this.products = [...this.products.filter((p) => p.id !== id)];
+  deleteProduct = async (id: number) => {
+    await agent.Products.delete(id);
+    // this.products = [...this.products.filter((p) => p.id !== id)];
   };
 }

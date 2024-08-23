@@ -6,6 +6,8 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Product } from "../../app/models/Product";
 import { Button } from "react-bootstrap";
+import { CreateProduct } from "../../app/models/CreateProduct";
+import { UpdateProduct } from "../../app/models/UpdateProduct";
 
 const productSchema = z.object({
   name: z.string(),
@@ -21,14 +23,14 @@ export default observer(function ProductForm() {
   const { productStore } = useStore();
   const { createProduct, updateProduct } = productStore;
   const { id } = useParams();
-  const product = useLoaderData() as Product | null;
+  const product = useLoaderData() as UpdateProduct | null;
   const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
     reset,
-  } = useForm<Product>({
+  } = useForm<CreateProduct | UpdateProduct>({
     resolver: zodResolver(productSchema),
     defaultValues: {
       id: product?.id || 0,
@@ -39,22 +41,31 @@ export default observer(function ProductForm() {
       fats: product?.fats || 0,
       fiber: product?.fiber || 0,
       price: product?.price || 0,
-      createdBy: "User",
     },
   });
 
-  const onSubmit = (data: Product) => {
-    console.log(product);
+  const onSubmit = (data: CreateProduct | UpdateProduct) => {
     if (id) {
-      data.id = parseInt(id, 10);
-      updateProduct(data);
+      const updateData: UpdateProduct = { ...data, id: Number(id) };
+      updateProduct(updateData);
     } else {
-      createProduct(data);
+      const createData: CreateProduct = { ...data, createdBy: "" };
+      createProduct(createData);
     }
-
-    // id ? updateProduct(data) : createProduct(data);
     navigate("/products");
   };
+
+  // const onSubmit = (data: CreateProduct | UpdateProduct) => {
+  //   if (id) {
+  //     data.id = parseInt(id, 10);
+  //     updateProduct(data);
+  //   } else {
+  //     createProduct(data);
+  //   }
+
+  //   // id ? updateProduct(data) : createProduct(data);
+  //   navigate("/products");
+  // };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

@@ -2,10 +2,15 @@ import { Button, Col, Container, Row, Table } from "react-bootstrap";
 import { useStore } from "../../app/stores/store";
 import { observer } from "mobx-react-lite";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 
 export default observer(function ProductList() {
   const { productStore } = useStore();
   const { products, deleteProduct } = productStore;
+
+  useEffect(() => {
+    productStore.loadProducts();
+  }, [productStore]);
 
   return (
     <>

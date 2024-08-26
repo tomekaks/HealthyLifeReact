@@ -1,6 +1,6 @@
 import { Meal } from "../../app/models/Meal";
-import { MealItem } from "../../app/models/MealItem";
-import { Product } from "../../app/models/Product";
+import { MealItem } from "../models/MealItem/MealItem";
+import { Product } from "../../app/models/Product/Product";
 
 function createMealItem(
   id: number,

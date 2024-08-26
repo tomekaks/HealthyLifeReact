@@ -1,4 +1,6 @@
-import { MealItem } from "../../app/models/MealItem";
+import { Button } from "react-bootstrap";
+import { MealItem } from "../../app/models/MealItem/MealItem";
+import { useStore } from "../../app/stores/store";
 
 interface Props {
   mealItem: MealItem;
@@ -6,9 +8,18 @@ interface Props {
 
 export default function MealItemRow(props: Props) {
   const { mealItem } = props;
+  const { mealItemStore } = useStore();
+
   return (
     <tr>
-      <td></td>
+      <td>
+        <Button
+          variant="danger"
+          onClick={() => mealItemStore.deleteMealItem(mealItem.id)}
+        >
+          Delete
+        </Button>
+      </td>
       <td>{mealItem.product.name}</td>
       <td>{mealItem.weight}</td>
       <td>{mealItem.calories}</td>

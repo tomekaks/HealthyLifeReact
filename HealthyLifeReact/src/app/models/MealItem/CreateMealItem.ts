@@ -1,8 +1,4 @@
-import { Product } from "./Product";
-
-export interface MealItem {
-  id: number;
-  mealId: number;
+export interface CreateMealItem {
   weight: number;
   calories: number;
   proteins: number;
@@ -10,5 +6,6 @@ export interface MealItem {
   fats: number;
   fiber: number;
   price: number;
-  product: Product;
+  productId: number;
+  mealId: number;
 }

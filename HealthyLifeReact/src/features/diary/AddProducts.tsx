@@ -2,16 +2,15 @@ import { Button, Col, Container, Row, Table } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
 import { useStore } from "../../app/stores/store";
 import { useForm } from "react-hook-form";
-import { MealItem } from "../../app/models/MealItem";
+import { MealItem } from "../../app/models/MealItem/MealItem";
 import { useState } from "react";
-import { Product } from "../../app/models/Product";
-import { Meal } from "../../app/models/Meal";
-import { testMeals } from "./TestMeals";
+import { Product } from "../../app/models/Product/Product";
+import { CreateMealItem } from "../../app/models/MealItem/CreateMealItem";
 
 export default function AddProducts() {
-  const meals: Meal[] = testMeals;
-  const { productStore } = useStore();
+  const { productStore, dailySumStore, mealItemStore } = useStore();
   const { products } = productStore;
+  const { dailySum } = dailySumStore;
   const { mealId } = useParams();
   const { register, handleSubmit, formState: errors } = useForm<MealItem>();
   const [selectedProduct, setSelectedProduct] = useState<Product | undefined>(
@@ -28,8 +27,8 @@ export default function AddProducts() {
 
   function onSubmit(data: MealItem) {
     console.log(data);
-    const meal = meals.find((meal) => meal.id === Number(mealId));
-    const totalMealItems = meals.reduce(
+    const meal = dailySum.meals.find((meal) => meal.id === Number(mealId));
+    const totalMealItems = dailySum.meals.reduce(
       (total, meal) => total + meal.mealItems.length,
       0
     );
@@ -37,21 +36,19 @@ export default function AddProducts() {
     const calculateField = (fieldValue: number, weight: number) =>
       Math.round((fieldValue / 100) * weight);
 
-    const mealItem: MealItem = {
-      id: totalMealItems + 1,
-      mealId: Number(mealId),
-      weight: data.weight,
+    const mealItem: CreateMealItem = {
+      weight: Number(data.weight),
       calories: calculateField(selectedProduct!.calories, data.weight),
       proteins: calculateField(selectedProduct!.proteins, data.weight),
       carbs: calculateField(selectedProduct!.carbs, data.weight),
       fats: calculateField(selectedProduct!.fats, data.weight),
       fiber: calculateField(selectedProduct!.fiber, data.weight),
       price: calculateField(selectedProduct!.price, data.weight),
-      product: selectedProduct!,
+      productId: selectedProduct!.id,
+      mealId: Number(mealId),
     };
-
-    meal?.mealItems.push(mealItem);
-    console.log(meal?.mealItems);
+    console.log(mealItem);
+    mealItemStore.createMealItem(mealItem);
   }
 
   return (

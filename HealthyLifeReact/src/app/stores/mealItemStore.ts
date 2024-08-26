@@ -1,12 +1,18 @@
 import { makeAutoObservable } from "mobx";
-import { MealItem } from "../models/MealItem";
-import { testMeals } from "../../features/diary/TestMeals";
-import { Meal } from "../models/Meal";
+import agent from "../api/agent";
+import { CreateMealItem } from "../models/MealItem/CreateMealItem";
 
 export default class MealItemStore {
-  meals: Meal[] = testMeals;
-
   constructor() {
     makeAutoObservable(this);
   }
+
+  createMealItem = async (mealItem: CreateMealItem) => {
+    console.log(mealItem);
+    await agent.MealItems.create(mealItem);
+  };
+
+  deleteMealItem = async (id: number) => {
+    await agent.MealItems.delete(id);
+  };
 }

@@ -4,10 +4,10 @@ import { Link, useLoaderData, useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Product } from "../../app/models/Product";
+import { Product } from "../../app/models/Product/Product";
 import { Button } from "react-bootstrap";
-import { CreateProduct } from "../../app/models/CreateProduct";
-import { UpdateProduct } from "../../app/models/UpdateProduct";
+import { CreateProduct } from "../../app/models/Product/CreateProduct";
+import { UpdateProduct } from "../../app/models/Product/UpdateProduct";
 
 const productSchema = z.object({
   name: z.string(),

@@ -1,5 +1,5 @@
-import { Meal } from "./Meal";
-import { Workout } from "./Workout";
+import { Meal } from "../Meal";
+import { Workout } from "../Workout";
 
 export interface DailySum {
   id: number;

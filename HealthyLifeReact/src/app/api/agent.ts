@@ -1,11 +1,13 @@
 import axios, { AxiosResponse } from "axios";
-import { Product } from "../models/Product";
-import { MealItem } from "../models/MealItem";
+import { Product } from "../models/Product/Product";
+import { MealItem } from "../models/MealItem/MealItem";
 import { Meal } from "../models/Meal";
-import { DailySum } from "../models/DailySum";
+import { DailySum } from "../models/DailySum/DailySum";
 import { DailyGoal } from "../models/DailyGoal";
-import { CreateProduct } from "../models/CreateProduct";
-import { UpdateProduct } from "../models/UpdateProduct";
+import { CreateProduct } from "../models/Product/CreateProduct";
+import { UpdateProduct } from "../models/Product/UpdateProduct";
+import { CreateDailySum } from "../models/DailySum/CreateDailySum";
+import { CreateMealItem } from "../models/MealItem/CreateMealItem";
 
 axios.defaults.baseURL = "https://localhost:44306/api/";
 
@@ -30,9 +32,9 @@ const MealItems = {
   list: (mealId: number) =>
     requests.get<MealItem[]>(`meal-items/by-meal/${mealId}`),
   single: (id: number) => requests.get<MealItem>(`meal-items/${id}`),
-  create: (mealItem: MealItem) => requests.post(`meal-items`, mealItem),
+  create: (mealItem: CreateMealItem) => requests.post(`meal-items`, mealItem),
   update: (mealItem: MealItem) => requests.put(`meal-items`, mealItem),
-  delete: (id: number) => requests.delete(`meal-item/${id}`),
+  delete: (id: number) => requests.delete(`meal-items/${id}`),
 };
 
 const Meals = {
@@ -49,7 +51,7 @@ const DailySums = {
   single: (id: number) => requests.get<DailySum>(`daily-sums/${id}`),
   byDate: (date: string) =>
     requests.get<DailySum>(`daily-sums/by-date/${date}`),
-  create: (dailySum: DailySum) => requests.post(`daily-sums`, dailySum),
+  create: (dailySum: CreateDailySum) => requests.post(`daily-sums`, dailySum),
   update: (dailySum: DailySum) => requests.put(`daily-sums`, dailySum),
   delete: (id: number) => requests.delete(`daily-sums/${id}`),
 };

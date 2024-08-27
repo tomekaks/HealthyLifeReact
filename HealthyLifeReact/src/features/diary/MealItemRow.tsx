@@ -1,12 +1,13 @@
 import { Button } from "react-bootstrap";
 import { MealItem } from "../../app/models/MealItem/MealItem";
 import { useStore } from "../../app/stores/store";
+import { observer } from "mobx-react-lite";
 
 interface Props {
   mealItem: MealItem;
 }
 
-export default function MealItemRow(props: Props) {
+function MealItemRow(props: Props) {
   const { mealItem } = props;
   const { mealItemStore } = useStore();
 
@@ -30,3 +31,4 @@ export default function MealItemRow(props: Props) {
     </tr>
   );
 }
+export default observer(MealItemRow);

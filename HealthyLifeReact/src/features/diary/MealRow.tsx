@@ -3,12 +3,13 @@ import { Meal } from "../../app/models/Meal";
 import MealItemRow from "./MealItemRow";
 import TotalsRow from "./TotalsRow";
 import { Button } from "react-bootstrap";
+import { observer } from "mobx-react-lite";
 
 interface Props {
   meal: Meal;
 }
 
-export default function MealRow(props: Props) {
+function MealRow(props: Props) {
   const { meal } = props;
   return (
     <>
@@ -33,3 +34,5 @@ export default function MealRow(props: Props) {
     </>
   );
 }
+
+export default observer(MealRow);

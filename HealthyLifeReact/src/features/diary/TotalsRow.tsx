@@ -6,6 +6,7 @@ interface Params {
 
 export default function TotalsRow(params: Params) {
   const { meal } = params;
+
   return (
     <tr>
       <td>Totals</td>

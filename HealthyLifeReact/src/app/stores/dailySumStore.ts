@@ -9,12 +9,12 @@ export default class DailySumStore {
     id: 0,
     userId: "",
     date: "",
-    totalCalories: 0,
-    totalProteins: 0,
-    totalCarbs: 0,
-    totalFats: 0,
-    totalFiber: 0,
-    totalPrice: 0,
+    calories: 0,
+    proteins: 0,
+    carbs: 0,
+    fats: 0,
+    fiber: 0,
+    price: 0,
     caloriesBurned: 0,
     meals: [],
     workouts: [],
@@ -24,6 +24,7 @@ export default class DailySumStore {
     month: "numeric",
     day: "numeric",
   });
+  loadingInitial = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -35,11 +36,13 @@ export default class DailySumStore {
 
   loadDailySum = async () => {
     const newDate = this.formatDate(new Date());
-
+    this.loadingInitial = true;
     const response = await agent.DailySums.byDate(newDate);
     console.log(response);
     runInAction(() => {
       this.dailySum = response;
+      this.loadingInitial = false;
+      console.log(this.dailySum);
     });
   };
 

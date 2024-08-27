@@ -5,12 +5,12 @@ export interface DailySum {
   id: number;
   userId: string;
   date: string;
-  totalCalories: number;
-  totalProteins: number;
-  totalCarbs: number;
-  totalFats: number;
-  totalFiber: number;
-  totalPrice: number;
+  calories: number;
+  proteins: number;
+  carbs: number;
+  fats: number;
+  fiber: number;
+  price: number;
   caloriesBurned: number;
   meals: Meal[];
   workouts: Workout[];

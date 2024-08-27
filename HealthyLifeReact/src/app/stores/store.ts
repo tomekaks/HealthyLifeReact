@@ -3,12 +3,14 @@ import ProductStore from "./productStore";
 import MealItemStore from "./mealItemStore";
 import MealStore from "./mealStore";
 import DailySumStore from "./dailySumStore";
+import DailyGoalStore from "./dailyGoalStore";
 
 interface Store {
   productStore: ProductStore;
   mealItemStore: MealItemStore;
   mealStore: MealStore;
   dailySumStore: DailySumStore;
+  dailyGoalStore: DailyGoalStore;
 }
 
 export const store: Store = {
@@ -16,6 +18,7 @@ export const store: Store = {
   mealItemStore: new MealItemStore(),
   mealStore: new MealStore(),
   dailySumStore: new DailySumStore(),
+  dailyGoalStore: new DailyGoalStore(),
 };
 
 export const StoreContext = createContext(store);

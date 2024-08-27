@@ -3,11 +3,13 @@ import { Product } from "../models/Product/Product";
 import { MealItem } from "../models/MealItem/MealItem";
 import { Meal } from "../models/Meal";
 import { DailySum } from "../models/DailySum/DailySum";
-import { DailyGoal } from "../models/DailyGoal";
+import { DailyGoal } from "../models/DailyGoal/DailyGoal";
 import { CreateProduct } from "../models/Product/CreateProduct";
 import { UpdateProduct } from "../models/Product/UpdateProduct";
 import { CreateDailySum } from "../models/DailySum/CreateDailySum";
 import { CreateMealItem } from "../models/MealItem/CreateMealItem";
+import { get } from "mobx";
+import { UpdateDailyGoal } from "../models/DailyGoal/UpdateDailyGoal";
 
 axios.defaults.baseURL = "https://localhost:44306/api/";
 
@@ -57,9 +59,9 @@ const DailySums = {
 };
 
 const DailyGoals = {
-  single: () => requests.get<DailyGoal[]>(`daily-goals`),
-  create: (dailyGoal: DailyGoal) => requests.post(`daily-goals`, dailyGoal),
-  update: (dailyGoal: DailyGoal) => requests.put(`daily-goals`, dailyGoal),
+  get: () => requests.get<DailyGoal>(`daily-goals`),
+  update: (dailyGoal: UpdateDailyGoal) =>
+    requests.put(`daily-goals`, dailyGoal),
 };
 
 const agent = {

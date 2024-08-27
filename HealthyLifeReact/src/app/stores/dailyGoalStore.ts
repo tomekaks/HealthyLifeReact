@@ -4,7 +4,15 @@ import agent from "../api/agent";
 import { UpdateDailyGoal } from "../models/DailyGoal/UpdateDailyGoal";
 
 export default class DailyGoalStore {
-  dailyGoal: DailyGoal | null = null;
+  dailyGoal: DailyGoal = {
+    id: 0,
+    calories: 0,
+    proteins: 0,
+    carbs: 0,
+    fats: 0,
+    fiber: 0,
+    userId: "",
+  };
 
   constructor() {
     makeAutoObservable(this);

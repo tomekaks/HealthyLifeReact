@@ -8,9 +8,8 @@ import { Product } from "../../app/models/Product/Product";
 import { CreateMealItem } from "../../app/models/MealItem/CreateMealItem";
 
 export default function AddProducts() {
-  const { productStore, dailySumStore, mealItemStore } = useStore();
+  const { productStore, mealItemStore } = useStore();
   const { products } = productStore;
-  const { dailySum } = dailySumStore;
   const { mealId } = useParams();
   const { register, handleSubmit, formState: errors } = useForm<MealItem>();
   const [selectedProduct, setSelectedProduct] = useState<Product | undefined>(
@@ -26,13 +25,6 @@ export default function AddProducts() {
   }
 
   function onSubmit(data: MealItem) {
-    console.log(data);
-    const meal = dailySum.meals.find((meal) => meal.id === Number(mealId));
-    const totalMealItems = dailySum.meals.reduce(
-      (total, meal) => total + meal.mealItems.length,
-      0
-    );
-
     const calculateField = (fieldValue: number, weight: number) =>
       Math.round((fieldValue / 100) * weight);
 

@@ -9,7 +9,7 @@ export default function TotalsRow(params: Params) {
 
   return (
     <tr>
-      <td>Totals</td>
+      <th>Totals</th>
       <td></td>
       <td></td>
       <td>{meal.calories}</td>

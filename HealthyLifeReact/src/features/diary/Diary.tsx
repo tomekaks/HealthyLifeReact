@@ -3,6 +3,7 @@ import MealRow from "./MealRow";
 import { useEffect, useState } from "react";
 import { useStore } from "../../app/stores/store";
 import { observer } from "mobx-react-lite";
+import DailyTotals from "./DailyTotals";
 
 function Diary() {
   const { dailySumStore, dailyGoalStore } = useStore();
@@ -65,46 +66,7 @@ function Diary() {
             </Table>
           </Col>
         </Row>
-        <Row>
-          <Col md="5">
-            <Table>
-              <thead>
-                <tr>
-                  <th></th>
-                  <th>Calories</th>
-                  <th>Proteins</th>
-                  <th>Carbs</th>
-                  <th>Fats</th>
-                  <th>Fiber</th>
-                </tr>
-                <tr>
-                  <th>Daily totals</th>
-                  <td>{dailySum.calories}</td>
-                  <td>{dailySum.proteins}</td>
-                  <td>{dailySum.carbs}</td>
-                  <td>{dailySum.fats}</td>
-                  <td>{dailySum.fiber}</td>
-                </tr>
-                <tr>
-                  <th>Your daily goals</th>
-                  <td>{dailyGoal?.calories}</td>
-                  <td>{dailyGoal?.proteins}</td>
-                  <td>{dailyGoal?.carbs}</td>
-                  <td>{dailyGoal?.fats}</td>
-                  <td>{dailyGoal?.fiber}</td>
-                </tr>
-                <tr>
-                  <th>Remaining</th>
-                  <td>0</td>
-                  <td>0</td>
-                  <td>0</td>
-                  <td>0</td>
-                  <td>0</td>
-                </tr>
-              </thead>
-            </Table>
-          </Col>
-        </Row>
+        <DailyTotals />
       </Container>
     </>
   );

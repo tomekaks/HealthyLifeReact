@@ -19,7 +19,7 @@ function ExerciseList() {
           <Col md="8">
             <h2>Exercises</h2>
             <div className="mb-3">
-              <Link to={"/createExercise"}>
+              <Link to={"createExercise"}>
                 <Button variant="success">Add new exercise</Button>
               </Link>
             </div>
@@ -37,7 +37,7 @@ function ExerciseList() {
                     <td>{exercise.name}</td>
                     <td>{exercise.caloriesPerHour}</td>
                     <td>
-                      <Link to={`/editExercise/${exercise.id}`}>
+                      <Link to={`editExercise/${exercise.id}`}>
                         <Button variant="info">Edit</Button>{" "}
                       </Link>
                       <Button

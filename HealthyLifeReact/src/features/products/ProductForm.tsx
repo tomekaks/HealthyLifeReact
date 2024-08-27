@@ -10,7 +10,7 @@ import { CreateProduct } from "../../app/models/product/CreateProduct";
 import { UpdateProduct } from "../../app/models/product/UpdateProduct";
 
 const productSchema = z.object({
-  name: z.string(),
+  name: z.string().min(2),
   calories: z.number().min(0),
   proteins: z.number().min(0),
   carbs: z.number().min(0),
@@ -19,7 +19,7 @@ const productSchema = z.object({
   price: z.number().min(0),
 });
 
-export default observer(function ProductForm() {
+function ProductForm() {
   const { productStore } = useStore();
   const { createProduct, updateProduct } = productStore;
   const { id } = useParams();
@@ -128,4 +128,5 @@ export default observer(function ProductForm() {
       </Row>
     </Container>
   );
-});
+}
+export default observer(ProductForm);

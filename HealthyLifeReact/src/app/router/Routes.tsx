@@ -8,6 +8,8 @@ import Diary from "../../features/diary/Diary";
 import AddProducts from "../../features/diary/AddProducts";
 import UpdateGoals from "../../features/diary/UpdateGoals";
 import ExerciseList from "../../features/exercises/ExerciseList";
+import exerciseLoader from "../../features/exercises/exerciseLoader";
+import ExerciseForm from "../../features/exercises/ExerciseForm";
 
 export const routes: RouteObject[] = [
   {
@@ -30,13 +32,13 @@ export const routes: RouteObject[] = [
       },
       { path: "exercises", element: <ExerciseList /> },
       {
-        path: "products/createProduct",
-        element: <ProductForm key={"create"} />,
+        path: "exercises/createExercise",
+        element: <ExerciseForm key={"create"} />,
       },
       {
-        path: "products/editProduct/:id",
-        element: <ProductForm key={"edit"} />,
-        loader: productLoader,
+        path: "exercises/editExercise/:id",
+        element: <ExerciseForm key={"edit"} />,
+        loader: exerciseLoader,
       },
     ],
   },

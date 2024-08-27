@@ -1,7 +1,7 @@
 import { makeAutoObservable, runInAction } from "mobx";
-import { DailySum } from "../models/DailySum/DailySum";
+import { DailySum } from "../models/dailySum/DailySum";
 import agent from "../api/agent";
-import { CreateDailySum } from "../models/DailySum/CreateDailySum";
+import { CreateDailySum } from "../models/dailySum/CreateDailySum";
 
 export default class DailySumStore {
   dailySums: DailySum[] = [];

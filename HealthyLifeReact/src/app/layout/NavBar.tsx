@@ -19,6 +19,9 @@ function NavBar() {
             <Nav.Link as={NavLink} to="/products">
               Products
             </Nav.Link>
+            <Nav.Link as={NavLink} to="/exercises">
+              Exercises
+            </Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

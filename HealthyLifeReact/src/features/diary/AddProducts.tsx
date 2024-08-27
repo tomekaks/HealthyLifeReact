@@ -2,10 +2,10 @@ import { Button, Col, Container, Row, Table } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
 import { useStore } from "../../app/stores/store";
 import { useForm } from "react-hook-form";
-import { MealItem } from "../../app/models/MealItem/MealItem";
+import { MealItem } from "../../app/models/mealItem/MealItem";
 import { useState } from "react";
-import { Product } from "../../app/models/Product/Product";
-import { CreateMealItem } from "../../app/models/MealItem/CreateMealItem";
+import { Product } from "../../app/models/product/Product";
+import { CreateMealItem } from "../../app/models/mealItem/CreateMealItem";
 
 export default function AddProducts() {
   const { productStore, mealItemStore } = useStore();

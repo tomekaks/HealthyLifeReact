@@ -1,8 +1,8 @@
 import { makeAutoObservable, runInAction } from "mobx";
-import { Product } from "../models/Product/Product";
+import { Product } from "../models/product/Product";
 import agent from "../api/agent";
-import { CreateProduct } from "../models/Product/CreateProduct";
-import { UpdateProduct } from "../models/Product/UpdateProduct";
+import { CreateProduct } from "../models/product/CreateProduct";
+import { UpdateProduct } from "../models/product/UpdateProduct";
 
 export default class ProductStore {
   products: Product[] = [];

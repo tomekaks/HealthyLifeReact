@@ -1,5 +1,5 @@
 import { observer } from "mobx-react-lite";
-import { DailyGoal } from "../../app/models/DailyGoal/DailyGoal";
+import { DailyGoal } from "../../app/models/dailyGoal/DailyGoal";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useForm } from "react-hook-form";

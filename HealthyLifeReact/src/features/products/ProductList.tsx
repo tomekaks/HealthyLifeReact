@@ -19,7 +19,7 @@ export default observer(function ProductList() {
           <Col md="8">
             <h2>Products</h2>
             <div className="mb-3">
-              <Link to={"/createProduct"}>
+              <Link to={"createProduct"}>
                 <Button variant="success">Add new product</Button>
               </Link>
             </div>
@@ -45,7 +45,7 @@ export default observer(function ProductList() {
                     <td>{product.fats}</td>
                     <td>{product.fiber}</td>
                     <td>
-                      <Link to={`/editProduct/${product.id}`}>
+                      <Link to={`editProduct/${product.id}`}>
                         <Button variant="info">Edit</Button>{" "}
                       </Link>
                       <Button

@@ -1,7 +1,7 @@
 import { makeAutoObservable, runInAction } from "mobx";
-import { DailyGoal } from "../models/DailyGoal/DailyGoal";
+import { DailyGoal } from "../models/dailyGoal/DailyGoal";
 import agent from "../api/agent";
-import { UpdateDailyGoal } from "../models/DailyGoal/UpdateDailyGoal";
+import { UpdateDailyGoal } from "../models/dailyGoal/UpdateDailyGoal";
 
 export default class DailyGoalStore {
   dailyGoal: DailyGoal = {

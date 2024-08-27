@@ -1,5 +1,5 @@
 import { Button } from "react-bootstrap";
-import { MealItem } from "../../app/models/MealItem/MealItem";
+import { MealItem } from "../../app/models/mealItem/MealItem";
 import { useStore } from "../../app/stores/store";
 import { observer } from "mobx-react-lite";
 

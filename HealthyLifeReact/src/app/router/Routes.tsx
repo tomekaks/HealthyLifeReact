@@ -7,6 +7,7 @@ import productLoader from "../../features/products/productLoader";
 import Diary from "../../features/diary/Diary";
 import AddProducts from "../../features/diary/AddProducts";
 import UpdateGoals from "../../features/diary/UpdateGoals";
+import ExerciseList from "../../features/exercises/ExerciseList";
 
 export const routes: RouteObject[] = [
   {
@@ -18,9 +19,22 @@ export const routes: RouteObject[] = [
       { path: "diary/updateGoals", element: <UpdateGoals /> },
       { path: "diary/addProducts/:mealId", element: <AddProducts /> },
       { path: "products", element: <ProductList /> },
-      { path: "createProduct", element: <ProductForm key={"create"} /> },
       {
-        path: "editProduct/:id",
+        path: "products/createProduct",
+        element: <ProductForm key={"create"} />,
+      },
+      {
+        path: "products/editProduct/:id",
+        element: <ProductForm key={"edit"} />,
+        loader: productLoader,
+      },
+      { path: "exercises", element: <ExerciseList /> },
+      {
+        path: "products/createProduct",
+        element: <ProductForm key={"create"} />,
+      },
+      {
+        path: "products/editProduct/:id",
         element: <ProductForm key={"edit"} />,
         loader: productLoader,
       },

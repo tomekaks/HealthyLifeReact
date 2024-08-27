@@ -1,6 +1,6 @@
 import { makeAutoObservable } from "mobx";
 import agent from "../api/agent";
-import { CreateMealItem } from "../models/MealItem/CreateMealItem";
+import { CreateMealItem } from "../models/mealItem/CreateMealItem";
 
 export default class MealItemStore {
   constructor() {

@@ -1,4 +1,4 @@
-import { MealItem } from "./MealItem/MealItem";
+import { MealItem } from "./mealItem/MealItem";
 
 export interface Meal {
   id: number;

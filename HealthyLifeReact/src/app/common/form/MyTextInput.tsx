@@ -1,6 +1,6 @@
 import { Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
-import { Product } from "../../models/Product/Product";
+import { Product } from "../../models/product/Product";
 
 interface Props {
   label: string;

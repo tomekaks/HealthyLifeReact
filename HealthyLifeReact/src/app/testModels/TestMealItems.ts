@@ -1,5 +1,5 @@
-import { MealItem } from "../models/MealItem/MealItem";
-import { Product } from "../../app/models/Product/Product";
+import { MealItem } from "../models/mealItem/MealItem";
+import { Product } from "../models/product/Product";
 
 function createMealItem(
   id: number,

@@ -1,15 +1,17 @@
 import axios, { AxiosResponse } from "axios";
-import { Product } from "../models/Product/Product";
-import { MealItem } from "../models/MealItem/MealItem";
+import { Product } from "../models/product/Product";
+import { MealItem } from "../models/mealItem/MealItem";
 import { Meal } from "../models/Meal";
-import { DailySum } from "../models/DailySum/DailySum";
-import { DailyGoal } from "../models/DailyGoal/DailyGoal";
-import { CreateProduct } from "../models/Product/CreateProduct";
-import { UpdateProduct } from "../models/Product/UpdateProduct";
-import { CreateDailySum } from "../models/DailySum/CreateDailySum";
-import { CreateMealItem } from "../models/MealItem/CreateMealItem";
-import { get } from "mobx";
-import { UpdateDailyGoal } from "../models/DailyGoal/UpdateDailyGoal";
+import { DailySum } from "../models/dailySum/DailySum";
+import { DailyGoal } from "../models/dailyGoal/DailyGoal";
+import { CreateProduct } from "../models/product/CreateProduct";
+import { UpdateProduct } from "../models/product/UpdateProduct";
+import { CreateDailySum } from "../models/dailySum/CreateDailySum";
+import { CreateMealItem } from "../models/mealItem/CreateMealItem";
+import { UpdateDailyGoal } from "../models/dailyGoal/UpdateDailyGoal";
+import { Exercise } from "../models/exercise/Exercise";
+import { CreateExercise } from "../models/exercise/CreateExercise";
+import { UpdateExercise } from "../models/exercise/UpdateExercise";
 
 axios.defaults.baseURL = "https://localhost:44306/api/";
 
@@ -64,12 +66,21 @@ const DailyGoals = {
     requests.put(`daily-goals`, dailyGoal),
 };
 
+const Exercises = {
+  list: () => requests.get<Exercise[]>(`exercises`),
+  single: (id: number) => requests.get<Exercise>(`exercises/${id}`),
+  create: (exercise: CreateExercise) => requests.post(`exercises`, exercise),
+  update: (exercise: UpdateExercise) => requests.put(`exercises`, exercise),
+  delete: (id: number) => requests.delete(`exercises/${id}`),
+};
+
 const agent = {
   Products,
   MealItems,
   Meals,
   DailySums,
   DailyGoals,
+  Exercises,
 };
 
 export default agent;

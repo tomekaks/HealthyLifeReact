@@ -18,7 +18,7 @@ function MealItemRow(props: Props) {
           variant="danger"
           onClick={() => mealItemStore.deleteMealItem(mealItem.id)}
         >
-          Delete
+          Remove
         </Button>
       </td>
       <td>{mealItem.product.name}</td>

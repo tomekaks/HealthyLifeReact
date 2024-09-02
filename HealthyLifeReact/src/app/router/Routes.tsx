@@ -5,11 +5,13 @@ import ProductList from "../../features/products/ProductList";
 import ProductForm from "../../features/products/ProductForm";
 import productLoader from "../../features/products/productLoader";
 import Diary from "../../features/diary/Diary";
-import AddProducts from "../../features/diary/AddProducts";
+import AddProducts from "../../features/diary/AddMealItems";
 import UpdateGoals from "../../features/diary/UpdateGoals";
 import ExerciseList from "../../features/exercises/ExerciseList";
 import exerciseLoader from "../../features/exercises/exerciseLoader";
 import ExerciseForm from "../../features/exercises/ExerciseForm";
+import AddMealItems from "../../features/diary/AddMealItems";
+import AddWorkouts from "../../features/diary/AddWorkouts";
 
 export const routes: RouteObject[] = [
   {
@@ -19,7 +21,8 @@ export const routes: RouteObject[] = [
       { path: "", element: <HomePage /> },
       { path: "diary", element: <Diary /> },
       { path: "diary/updateGoals", element: <UpdateGoals /> },
-      { path: "diary/addProducts/:mealId", element: <AddProducts /> },
+      { path: "diary/addMealItems/:mealId", element: <AddMealItems /> },
+      { path: "diary/addWorkouts/:sumId", element: <AddWorkouts /> },
       { path: "products", element: <ProductList /> },
       {
         path: "products/createProduct",

@@ -12,6 +12,9 @@ import { UpdateDailyGoal } from "../models/dailyGoal/UpdateDailyGoal";
 import { Exercise } from "../models/exercise/Exercise";
 import { CreateExercise } from "../models/exercise/CreateExercise";
 import { UpdateExercise } from "../models/exercise/UpdateExercise";
+import { Workout } from "../models/workout/Workout";
+import { CreateWorkout } from "../models/workout/CreateWorkout";
+import { UpdateWorkout } from "../models/workout/UpdateWorkout";
 
 axios.defaults.baseURL = "https://localhost:44306/api/";
 
@@ -74,6 +77,15 @@ const Exercises = {
   delete: (id: number) => requests.delete(`exercises/${id}`),
 };
 
+const Workouts = {
+  list: (dailySumId: number) =>
+    requests.get<Workout[]>(`workouts/get-all/${dailySumId}`),
+  single: (id: number) => requests.get<Workout>(`workouts/${id}`),
+  create: (workout: CreateWorkout) => requests.post(`workouts`, workout),
+  update: (workout: UpdateWorkout) => requests.put(`workouts`, workout),
+  delete: (id: number) => requests.delete(`workouts/${id}`),
+};
+
 const agent = {
   Products,
   MealItems,
@@ -81,6 +93,7 @@ const agent = {
   DailySums,
   DailyGoals,
   Exercises,
+  Workouts,
 };
 
 export default agent;

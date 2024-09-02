@@ -7,7 +7,7 @@ import { useState } from "react";
 import { Product } from "../../app/models/product/Product";
 import { CreateMealItem } from "../../app/models/mealItem/CreateMealItem";
 
-export default function AddProducts() {
+export default function AddMealItems() {
   const { productStore, mealItemStore } = useStore();
   const { products } = productStore;
   const { mealId } = useParams();

@@ -16,7 +16,7 @@ function MealRow(props: Props) {
       <tr>
         <th>{meal.name}</th>
         <td>
-          <Link to={`addProducts/${meal.id}`}>
+          <Link to={`addMealItems/${meal.id}`}>
             <Button variant="success">Add</Button>
           </Link>
         </td>

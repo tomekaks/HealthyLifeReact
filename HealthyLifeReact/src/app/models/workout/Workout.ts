@@ -1,4 +1,4 @@
-import { Exercise } from "./exercise/Exercise";
+import { Exercise } from "../exercise/Exercise";
 
 export interface Workout {
   id: number;

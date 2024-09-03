@@ -1,4 +1,4 @@
-import { Button, Col, Container, Row, Table } from "react-bootstrap";
+import { Alert, Button, Col, Container, Row, Table } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
 import { useStore } from "../../app/stores/store";
 import { useForm } from "react-hook-form";
@@ -11,10 +11,16 @@ export default function AddMealItems() {
   const { productStore, mealItemStore } = useStore();
   const { products } = productStore;
   const { mealId } = useParams();
-  const { register, handleSubmit, formState: errors } = useForm<MealItem>();
+  const {
+    register,
+    handleSubmit,
+    formState: errors,
+    reset,
+  } = useForm<MealItem>();
   const [selectedProduct, setSelectedProduct] = useState<Product | undefined>(
     undefined
   );
+  const [submissionSuccess, setSubmissionSuccess] = useState(false);
 
   function selectProduct(productId: number) {
     setSelectedProduct(products.find((x) => x.id === productId));
@@ -22,6 +28,7 @@ export default function AddMealItems() {
 
   function cancelAdding() {
     setSelectedProduct(undefined);
+    reset();
   }
 
   function onSubmit(data: MealItem) {
@@ -41,12 +48,19 @@ export default function AddMealItems() {
     };
     console.log(mealItem);
     mealItemStore.createMealItem(mealItem);
+    setSubmissionSuccess(true);
+    setTimeout(() => setSubmissionSuccess(false), 3000);
+    reset();
+    setSelectedProduct(undefined);
   }
 
   return (
     <>
       <Container>
         <h2>Add Products</h2>
+        {submissionSuccess && (
+          <Alert variant="success">Meal item has been added.</Alert>
+        )}
         <Row>
           <Col md="8">
             <Table striped bordered hover>

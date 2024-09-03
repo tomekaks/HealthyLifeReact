@@ -1,16 +1,16 @@
-import { Button, Col, Container, Row, Table } from "react-bootstrap";
-import MealRow from "./MealRow";
-import { useEffect, useState } from "react";
+import { Button, Col, Container, Row } from "react-bootstrap";
+import { useEffect } from "react";
 import { useStore } from "../../app/stores/store";
 import { observer } from "mobx-react-lite";
-import DailyTotals from "./DailyTotalsTable";
 import WorkoutsTable from "./WorkoutsTable";
+import DailyTotalsTable from "./DailyTotalsTable";
+import MealsTable from "./MealsTable";
 
 function Diary() {
   const { dailySumStore, dailyGoalStore } = useStore();
   const { dailySum, createDailySum, loadDailySum, loadingInitial } =
     dailySumStore;
-  const { dailyGoal, loadDailyGoal } = dailyGoalStore;
+  const { loadDailyGoal } = dailyGoalStore;
   const today = new Date().toLocaleDateString(undefined, {
     weekday: "long",
     year: "numeric",
@@ -52,25 +52,7 @@ function Diary() {
             <div>
               <h2>Meals</h2>
             </div>
-            <Table striped bordered hover>
-              <thead>
-                <tr>
-                  <th></th>
-                  <th>Product</th>
-                  <th>Weight (g)</th>
-                  <th>Calories (kcal)</th>
-                  <th>Proteins (g)</th>
-                  <th>Carbs (g)</th>
-                  <th>Fats (g)</th>
-                  <th>Fiber (g)</th>
-                </tr>
-              </thead>
-              <tbody>
-                {dailySum.meals.map((meal) => (
-                  <MealRow meal={meal} key={meal.id} />
-                ))}
-              </tbody>
-            </Table>
+            <MealsTable />
           </Col>
           <Col md="4">
             <div>
@@ -81,7 +63,7 @@ function Diary() {
         </Row>
         <Row>
           <Col md="5">
-            <DailyTotals />
+            <DailyTotalsTable />
           </Col>
         </Row>
       </Container>

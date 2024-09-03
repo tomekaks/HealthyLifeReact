@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Meal } from "../../app/models/Meal";
 import MealItemRow from "./MealItemRow";
-import TotalsRow from "./TotalsRow";
+import TotalsRow from "./MealTotalsRow";
 import { Button } from "react-bootstrap";
 import { observer } from "mobx-react-lite";
 
@@ -28,7 +28,7 @@ function MealRow(props: Props) {
         <td></td>
       </tr>
       {meal.mealItems.map((mealItem) => (
-        <MealItemRow mealItem={mealItem} key={mealItem.id} />
+        <MealItemRow mealItem={mealItem} mealId={meal.id} key={mealItem.id} />
       ))}
       <TotalsRow meal={meal} />
     </>

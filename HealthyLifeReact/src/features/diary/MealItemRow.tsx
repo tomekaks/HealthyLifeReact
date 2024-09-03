@@ -5,18 +5,19 @@ import { observer } from "mobx-react-lite";
 
 interface Props {
   mealItem: MealItem;
+  mealId: number;
 }
 
 function MealItemRow(props: Props) {
-  const { mealItem } = props;
-  const { mealItemStore } = useStore();
+  const { mealItem, mealId } = props;
+  const { mealItemStore, dailySumStore } = useStore();
 
   return (
     <tr>
       <td>
         <Button
           variant="danger"
-          onClick={() => mealItemStore.deleteMealItem(mealItem.id)}
+          onClick={() => dailySumStore.deleteMealItem(mealItem.id, mealId)}
         >
           Remove
         </Button>

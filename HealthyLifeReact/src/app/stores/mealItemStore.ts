@@ -3,6 +3,7 @@ import agent from "../api/agent";
 import { CreateMealItem } from "../models/mealItem/CreateMealItem";
 
 export default class MealItemStore {
+  
   constructor() {
     makeAutoObservable(this);
   }

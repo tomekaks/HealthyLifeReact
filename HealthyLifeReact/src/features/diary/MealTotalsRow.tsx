@@ -4,7 +4,7 @@ interface Params {
   meal: Meal;
 }
 
-export default function TotalsRow(params: Params) {
+export default function MealTotalsRow(params: Params) {
   const { meal } = params;
 
   return (

@@ -9,14 +9,14 @@ interface Params {
 
 function WorkoutRow(params: Params) {
   const { workout } = params;
-  const { workoutStore } = useStore();
+  const { dailySumStore } = useStore();
   return (
     <>
       <tr>
         <td>
           <Button
             variant="danger"
-            onClick={() => workoutStore.deleteWorkout(workout.id)}
+            onClick={() => dailySumStore.deleteWorkout(workout.id)}
           >
             Remove
           </Button>

@@ -1,9 +1,9 @@
 import { observer } from "mobx-react-lite";
-import { Button, Col, Row, Table } from "react-bootstrap";
+import { Button, Table } from "react-bootstrap";
 import { useStore } from "../../app/stores/store";
 import { Link } from "react-router-dom";
 
-function DailyTotals() {
+function DailyTotalsTable() {
   const { dailySumStore, dailyGoalStore } = useStore();
   const { dailySum } = dailySumStore;
   const { dailyGoal } = dailyGoalStore;
@@ -49,7 +49,9 @@ function DailyTotals() {
         </tr>
         <tr>
           <th>Remaining</th>
-          <td>{dailyGoal.calories - dailySum.calories}</td>
+          <td>
+            {dailyGoal.calories - dailySum.calories + dailySum.caloriesBurned}
+          </td>
           <td>{dailyGoal.proteins - dailySum.proteins}</td>
           <td>{dailyGoal.carbs - dailySum.carbs}</td>
           <td>{dailyGoal.fats - dailySum.fats}</td>
@@ -59,4 +61,4 @@ function DailyTotals() {
     </Table>
   );
 }
-export default observer(DailyTotals);
+export default observer(DailyTotalsTable);

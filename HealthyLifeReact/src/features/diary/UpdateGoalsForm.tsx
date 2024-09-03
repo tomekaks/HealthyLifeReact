@@ -15,7 +15,7 @@ const dailyGoalSchema = z.object({
   fiber: z.number().min(0),
 });
 
-function UpdateGoals() {
+function UpdateGoalsForm() {
   const { dailyGoalStore } = useStore();
   const { dailyGoal, updateDailyGoal } = dailyGoalStore;
   const navigate = useNavigate();
@@ -99,4 +99,4 @@ function UpdateGoals() {
   );
 }
 
-export default observer(UpdateGoals);
+export default observer(UpdateGoalsForm);

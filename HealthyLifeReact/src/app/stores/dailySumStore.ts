@@ -64,6 +64,22 @@ export default class DailySumStore {
     runInAction(() => {
       const currentMeal = this.dailySum.meals.find((m) => m.id === mealId);
       if (currentMeal) {
+        const deletedMealItem = currentMeal.mealItems.find(
+          (item) => item.id === mealItemId
+        );
+
+        currentMeal.calories -= deletedMealItem!.calories;
+        currentMeal.proteins -= deletedMealItem!.proteins;
+        currentMeal.carbs -= deletedMealItem!.carbs;
+        currentMeal.fats -= deletedMealItem!.fats;
+        currentMeal.fiber -= deletedMealItem!.fiber;
+
+        this.dailySum.calories -= deletedMealItem!.calories;
+        this.dailySum.proteins -= deletedMealItem!.proteins;
+        this.dailySum.carbs -= deletedMealItem!.carbs;
+        this.dailySum.fats -= deletedMealItem!.fats;
+        this.dailySum.fiber -= deletedMealItem!.fiber;
+
         currentMeal.mealItems = currentMeal.mealItems.filter(
           (item) => item.id != mealItemId
         );
@@ -78,13 +94,13 @@ export default class DailySumStore {
     await agent.Workouts.create(workout);
   };
 
-  deleteWorkout = async (id: number) => {
-    // console.log(this.dailySum.workouts);
-    await agent.Workouts.delete(id);
+  deleteWorkout = async (workoutId: number) => {
+    await agent.Workouts.delete(workoutId);
     runInAction(() => {
       console.log(this.dailySum.workouts);
-      let workouts = this.dailySum.workouts;
-      workouts = workouts.filter((w) => w.id != id);
+      this.dailySum.workouts = this.dailySum.workouts.filter(
+        (w) => w.id != workoutId
+      );
     });
   };
 

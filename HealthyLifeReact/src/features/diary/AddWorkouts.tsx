@@ -4,17 +4,23 @@ import { Workout } from "../../app/models/workout/Workout";
 import { useState } from "react";
 import { Exercise } from "../../app/models/exercise/Exercise";
 import { CreateWorkout } from "../../app/models/workout/CreateWorkout";
-import { Button, Col, Container, Row, Table } from "react-bootstrap";
+import { Alert, Button, Col, Container, Row, Table } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 
 export default function AddWorkouts() {
   const { exerciseStore, workoutStore } = useStore();
   const { exercises } = exerciseStore;
   const { sumId } = useParams();
-  const { register, handleSubmit, formState: errors } = useForm<Workout>();
+  const {
+    register,
+    handleSubmit,
+    formState: errors,
+    reset,
+  } = useForm<Workout>();
   const [selectedExercise, setSelectedExercise] = useState<Exercise | null>(
     null
   );
+  const [submissionSuccess, setSubmissionSuccess] = useState(false);
 
   function selectExercise(exerciseId: number) {
     const exercise = exercises.find((x) => x.id === exerciseId);
@@ -23,6 +29,7 @@ export default function AddWorkouts() {
 
   function cancelAdding() {
     setSelectedExercise(null);
+    reset();
   }
 
   function onSubmit(data: Workout) {
@@ -37,6 +44,10 @@ export default function AddWorkouts() {
       };
       console.log(workout);
       workoutStore.createWorkout(workout);
+      setSubmissionSuccess(true);
+      setTimeout(() => setSubmissionSuccess(false), 3000);
+      reset();
+      setSelectedExercise(null);
     }
   }
 
@@ -44,6 +55,9 @@ export default function AddWorkouts() {
     <>
       <Container>
         <h2>Add Workouts</h2>
+        {submissionSuccess && (
+          <Alert variant="success">Workout has been added.</Alert>
+        )}
         <Row>
           <Col md="8">
             <Table striped bordered hover>

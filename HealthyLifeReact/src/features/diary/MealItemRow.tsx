@@ -10,7 +10,7 @@ interface Props {
 
 function MealItemRow(props: Props) {
   const { mealItem, mealId } = props;
-  const { mealItemStore, dailySumStore } = useStore();
+  const { dailySumStore } = useStore();
 
   return (
     <tr>

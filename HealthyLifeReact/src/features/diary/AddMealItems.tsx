@@ -3,13 +3,14 @@ import { Link, useParams } from "react-router-dom";
 import { useStore } from "../../app/stores/store";
 import { useForm } from "react-hook-form";
 import { MealItem } from "../../app/models/mealItem/MealItem";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Product } from "../../app/models/product/Product";
 import { CreateMealItem } from "../../app/models/mealItem/CreateMealItem";
+import { observer } from "mobx-react-lite";
 
-export default function AddMealItems() {
-  const { productStore, mealItemStore } = useStore();
-  const { products } = productStore;
+function AddMealItems() {
+  const { productStore, dailySumStore } = useStore();
+  const { products, loadProducts } = productStore;
   const { mealId } = useParams();
   const {
     register,
@@ -21,6 +22,12 @@ export default function AddMealItems() {
     undefined
   );
   const [submissionSuccess, setSubmissionSuccess] = useState(false);
+
+  useEffect(() => {
+    console.log("Loading products");
+    console.log(products);
+    loadProducts();
+  }, [productStore]);
 
   function selectProduct(productId: number) {
     setSelectedProduct(products.find((x) => x.id === productId));
@@ -47,7 +54,7 @@ export default function AddMealItems() {
       mealId: Number(mealId),
     };
     console.log(mealItem);
-    mealItemStore.createMealItem(mealItem);
+    dailySumStore.createMealItem(mealItem);
     setSubmissionSuccess(true);
     setTimeout(() => setSubmissionSuccess(false), 3000);
     reset();
@@ -130,3 +137,5 @@ export default function AddMealItems() {
     </>
   );
 }
+
+export default observer(AddMealItems);

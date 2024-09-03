@@ -1,15 +1,16 @@
 import { useForm } from "react-hook-form";
 import { useStore } from "../../app/stores/store";
 import { Workout } from "../../app/models/workout/Workout";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Exercise } from "../../app/models/exercise/Exercise";
 import { CreateWorkout } from "../../app/models/workout/CreateWorkout";
 import { Alert, Button, Col, Container, Row, Table } from "react-bootstrap";
 import { useParams } from "react-router-dom";
+import { observer } from "mobx-react-lite";
 
-export default function AddWorkouts() {
-  const { exerciseStore, workoutStore } = useStore();
-  const { exercises } = exerciseStore;
+function AddWorkouts() {
+  const { exerciseStore, dailySumStore } = useStore();
+  const { exercises, loadExercises } = exerciseStore;
   const { sumId } = useParams();
   const {
     register,
@@ -21,6 +22,10 @@ export default function AddWorkouts() {
     null
   );
   const [submissionSuccess, setSubmissionSuccess] = useState(false);
+
+  useEffect(() => {
+    loadExercises();
+  }, [exerciseStore]);
 
   function selectExercise(exerciseId: number) {
     const exercise = exercises.find((x) => x.id === exerciseId);
@@ -43,7 +48,7 @@ export default function AddWorkouts() {
         dailySumId: Number(sumId),
       };
       console.log(workout);
-      workoutStore.createWorkout(workout);
+      dailySumStore.createWorkout(workout);
       setSubmissionSuccess(true);
       setTimeout(() => setSubmissionSuccess(false), 3000);
       reset();
@@ -119,3 +124,5 @@ export default function AddWorkouts() {
     </>
   );
 }
+
+export default observer(AddWorkouts);

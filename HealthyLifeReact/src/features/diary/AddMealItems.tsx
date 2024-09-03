@@ -24,8 +24,6 @@ function AddMealItems() {
   const [submissionSuccess, setSubmissionSuccess] = useState(false);
 
   useEffect(() => {
-    console.log("Loading products");
-    console.log(products);
     loadProducts();
   }, [productStore]);
 

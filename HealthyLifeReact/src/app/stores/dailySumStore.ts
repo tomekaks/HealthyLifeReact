@@ -97,7 +97,12 @@ export default class DailySumStore {
   deleteWorkout = async (workoutId: number) => {
     await agent.Workouts.delete(workoutId);
     runInAction(() => {
-      console.log(this.dailySum.workouts);
+      const deletedWorkout = this.dailySum.workouts.find(
+        (w) => w.id === workoutId
+      );
+      if (deletedWorkout) {
+        this.dailySum.caloriesBurned -= deletedWorkout.caloriesBurned;
+      }
       this.dailySum.workouts = this.dailySum.workouts.filter(
         (w) => w.id != workoutId
       );
